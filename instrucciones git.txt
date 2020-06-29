@@ -1,0 +1,64 @@
+Tutorial introduccion git: https://www.youtube.com/watch?v=DuYjcOZw11s
+
+------CONFIGURACION------
+
+0) Primero debemos tener una cuenta de github e instalar git bash en nuestra computadora
+	-git bash: https://git-scm.com/downloads (entramos y en la seccion de downloads usamos nuestro sistema operativo)
+1) Despues de tener instalado git abrimos el programa git bash
+2) Al tener abierta la terminal del git bash, configuramos nuestras credenciales con los siguientes comandos:
+		git config --global user.name "NOMBRE DE USUARIO DE GITHUB"
+		git config --global user.email "CORREO DE GITHUB"
+3)Con esto ya estamos configurados para poder trabajar con repositorios por http, si quieres utilizar el metodo ssh puedes seguir este tutorial:
+	https://kbroman.org/github_tutorial/pages/first_time.html
+
+------CLONAR UN REPO------
+
+0) Primero debemos entrar a la carpeta donde vamos a guardar el repositorio utilizando el comando:
+		CD <NOMBRE CARPETA>
+	-Para regresar un nivel se utiliza CD ..
+
+1) Para trabajar en git primero necesitamos clonar el repositorio remoto con el comando:
+		git clone <URL>
+	-Lo clonaremos por el metodo http
+2) Una vez clonado nos creara una carpeta donde esta todo el codigo del repo, de la rama MASTER
+
+------TRABAJAR CON EL REPO------
+	
+	---Crear una rama---
+0) En nuestro flujo de trabajo, utilizaremos ramas para las tareas diferentes que estemos trabajando; las ramas se crean con el siguiente comando:
+		git checkout -b <NOMBRE DE RAMA>
+	-Donde nombre de rama es como se espera, el nombre de la rama que vamos a crear con la siguiente nomeclatura:
+		#rama que hemos trabajado-Iniciales-tarea o feature que vamos a codificar
+	-Primero debemos verificar que estemos en la rama de master con el comando
+		git status
+	-En caso de no estar en la rama master, utilizamos el comando:
+		git checkout master
+1) Una vez hecha nuestra rama debemos subirla para eso utilizaremos el comando
+		git push
+	-Git nos avisara que nuestra rama no esta especificada como upstream asi que tenemos que configurarla con:
+		git push --set-upstream origin <NOMBRE DE RAMA>
+	
+	---Sincronizar repo---
+0) Antes de empezar a trabajar con el codigo debemos hacer un comando:
+		git fetch
+	- Este comando sincroniza nuestro repositorio local con el repositorio remoto, NO DESCARGA NADA.
+1) Para descargar los cambios que se hayan hecho de un dia anterior (si es que los hay) debemos utilizar el comando:
+		git pull
+	- Este comando descarga todos los cambios de la RAMA actual.
+1.1) Puede sucitarse que haya un MERGE CONFLICT, en ese caso se listaran los archivos que causaron conflicto, hay que abrirlos y revisar cuales son las partes del codigo que estan causando un conflicto y eliminarlas o juntarlas dependiendo de los conflictos.
+	Nota: las lineas de codigo que estan en el repositorio remoto son precedidas por una etiqueta <<<<<HEAD y las lineas de codigo que tienes en tu repositorio local tienen una etiqueta <<< y un numero hexadecimal.
+1.2) Una vez resueltos los conflictos en los archivos hacer los pasos de la seccion ---Subir tus cambios---
+	
+	---Subir tus cambios---
+0) Primero debemos de verficar que haya archivos cambiados y que git los pueda ver:
+		git status
+	-El comando git status nos dara un resumen de que archivos fueron creados/borrados/editados
+1) Una vez que verificamos que hay cambios tenemos que agregarlos con el comando:
+		git add .
+2) Ya con los cambios agregados debemos de hacer commit:
+		git commit -m "MENSAJE"
+	-Donde MENSAJE es un pequeño resumen de que archivos editaste o que cambios hiciste.
+	-Si quieres dar un mensaje mas detallado puedes omitir la parte de -m "MENSAJE", esto abrira el editor de texto NANO para poder hacer un mensaje mas largo
+	-Una vez escrito nuestro mensaje presionamos las teclas CTRL+X para salir del editor NANO, nos preguntara si queremos guardar los cambios a lo que presionamos la tecla Y y despues damos enter.
+3) Una vez hecho el commit debemos de subirlo a nuestra rama remota utilizando el comando:
+		git push
